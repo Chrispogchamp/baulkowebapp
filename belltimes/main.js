@@ -1,11 +1,20 @@
-/* global belltimes */ 
+/* global belltimes */
 
 var newday = new Date();
 var day = newday.getDay();
 var currentsec = newday.getHours() * 3600 + newday.getMinutes() * 60 + newday.getSeconds();
 var daydata;
 var numberofperiods;
-var table = "<table class='table fs-6 text-light rounded'><caption class='mx-2'>Code by: Matthew Wu :3</caption>";
+var table = `
+    <table class="table fs-6 text-light rounded">
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-outline-light btn-lg m-3 d-flex mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Sync Timetable
+    </button>
+    <hr class="mx-3" />
+    <caption class="mx-2">Code by: Matthew Wu :3</caption>
+`;
 var periodtimename = [];
 var theme = 0;
 var weekend = 1;
@@ -188,6 +197,41 @@ function update() {
         writetotable();
         updateprogress();
     }
+}
+
+function loginRequest(username, password) {
+    var url = "https://baulkham-h.sentral.com.au/portal2/user";
+    var data = `
+        {
+            "action": "login", 
+            "username": ${username}, 
+            "password": ${password},
+            "remember_username": false
+        }
+    `;
+
+    res = fetch(url,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(data)
+        }
+    );
+
+    return res;
+}
+
+function syncTimetable() {
+    loginRequest(
+        $("#inputUsername").val(),
+        $("#inputPassword").val()
+    ).then(res => {
+        console.log(res);
+    });
+    console.log($("#inputUsername").val())
+    console.log($("#inputPassword").val())
 }
 
 getdatafortoday();
