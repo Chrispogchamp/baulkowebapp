@@ -200,7 +200,7 @@ function update() {
 }
 
 function loginRequest(username, password) {
-    var url = "https://baulkham-h.sentral.com.au/portal2/user";
+    var url = "https://mute-limit-80e2.baulko.workers.dev";
     var data = `
         {
             "action": "login", 
