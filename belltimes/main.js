@@ -200,7 +200,7 @@ function update() {
 }
 
 function loginRequest(username, password) {
-    var url = "https://mute-limit-80e2.baulko.workers.dev";
+    var url = "https://corsproxy.baulko.workers.dev/portal2/";
     var data = `
         {
             "action": "login", 
@@ -213,9 +213,9 @@ function loginRequest(username, password) {
     res = fetch(url,
         {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8"
-            },
+            // headers: {
+            //     "Content-Type": "application/json;charset=utf-8"
+            // },
             body: JSON.stringify(data)
         }
     );
@@ -228,10 +228,10 @@ function syncTimetable() {
         $("#inputUsername").val(),
         $("#inputPassword").val()
     ).then(res => {
-        console.log(res);
+        res.text().then(r => {
+            r
+        });
     });
-    console.log($("#inputUsername").val())
-    console.log($("#inputPassword").val())
 }
 
 getdatafortoday();
